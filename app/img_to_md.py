@@ -1,11 +1,12 @@
 import os
+import re
 import time
 import hashlib
 from PIL import ImageGrab
 
 
 menu_text = \
-'''
+    '''
 a：将剪贴板中的图片转换成markdown引用
 q：退出程序
 '''
@@ -47,13 +48,16 @@ def img_to_md(img_path):
     # 将图片保存到指定路径
     img.save(img_path + img_name)
     # 返回图片的markdown引用
-    img_markdown = '![img]({path})'.format(path='markdown_img/' + img_name)
-    return img_markdown
+    img_markdown1 = '![img]({name})'.format(name=img_name)
+    img_markdown2 = '![img]({path}/{name})'.format(
+        path=img_path.split('\\')[-2], name=img_name)
+    return [img_markdown1, img_markdown2]
 
 
 def main():
     md_path = get_md_path()
-    img_path = mkdir(md_path)
+    #img_path = mkdir(md_path)
+    img_path = md_path + '\\'
     while True:
         print(menu_text)
         arg = input('请输入要执行的操作参数：')
@@ -66,9 +70,13 @@ def main():
         try:
             md = img_to_md(img_path)
         except:
-            md = 'Error：剪贴板中没有截图'
+            md = [False, 'Error：剪贴板中没有截图']
         os.system('cls')
-        print(md)
+        if False == md[0]:
+            print(md[1])
+        else:
+            print(md[0])
+            print(md[1])
 
 
 if __name__ == "__main__":
