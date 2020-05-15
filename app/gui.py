@@ -20,8 +20,8 @@ class App:
 
     def get_folder_path(self):
         self.folder_path = filedialog.askdirectory()
-        self.folder_path = self.folder_path.replace('/', '\\') + '\\'
         if None != self.folder_path and '' != self.folder_path:
+            self.folder_path = self.folder_path.replace('/', '\\') + '\\'
             self.init_img_to_md_button()
 
     def img_to_md(self):
@@ -37,7 +37,7 @@ class App:
             result = tools.img_to_md(self.folder_path)
         except:
             result = ['剪贴板中没有截图', '请重试']
-        self.list_box.insert(1, '')
+        self.list_box.insert(1, self.folder_path)
         self.list_box.insert(2, result[0])
         self.list_box.insert(3, result[1])
         self.list_box.insert(4, '')
