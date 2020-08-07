@@ -48,8 +48,8 @@ def img_to_md(img_path):
     # 将图片保存到指定路径
     img.save(img_path + img_name)
     # 返回图片的markdown引用
-    img_markdown1 = '![img]({name})'.format(name=img_name)
-    img_markdown2 = '![img]({path}/{name})'.format(
+    img_markdown1 = '![]({name})'.format(name=img_name)
+    img_markdown2 = '![]({path}/{name})'.format(
         path=img_path.split('\\')[-2], name=img_name)
     return [img_markdown1, img_markdown2]
 
